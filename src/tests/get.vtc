@@ -1,0 +1,32 @@
+varnishtest "Test env.get()"
+
+server s1 {
+   rxreq
+   txresp
+} -repeat 1 -start
+
+varnish v1 -vcl+backend {
+    import env from "${vmod_topbuild}/src/.libs/libvmod_env.so";
+
+    sub vcl_init {
+        if (env.get("LIBVMOD_ENV_VALUE") == "") {
+        }
+    }
+
+    sub vcl_deliver {
+        set resp.http.result0 = env.get("LIBVMOD_ENV_value");
+        set resp.http.result1 = env.get("LIBVMOD_ENV_VALUE");
+    }
+} -start
+
+client c1 {
+    txreq
+    rxresp
+
+    expect resp.http.result0 == ""
+    expect resp.http.result1 == "hello world!"
+} -run
+
+varnish v1 -expect client_req == 1
+
+varnish v1 -expect MGT.child_panic == 0

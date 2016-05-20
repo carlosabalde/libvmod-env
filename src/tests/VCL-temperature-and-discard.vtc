@@ -1,0 +1,23 @@
+varnishtest "Test VCL temperature and discard"
+
+server s1 {
+   rxreq
+   txresp
+} -repeat 1 -start
+
+varnish v1 -vcl+backend {
+    import env from "${vmod_topbuild}/src/.libs/libvmod_env.so";
+} -start
+
+varnish v1 -vcl+backend {
+}
+
+varnish v1 -cliok "vcl.state vcl1 cold"
+
+varnish v1 -cliok "vcl.use vcl1"
+
+varnish v1 -cliok "vcl.use vcl2"
+
+varnish v1 -cliok "vcl.discard vcl1"
+
+varnish v1 -expect MGT.child_panic == 0

@@ -1,0 +1,34 @@
+#
+# Copyright (c) 2016 Carlos Abalde <carlos.abalde@gmail.com>
+#
+# You're free to use and distribute this under terms in the
+# LICENSE file.
+#
+
+$Module env 3 ENV VMOD
+
+DESCRIPTION
+===========
+
+VMOD useful to access to values of environment variables from VCL.
+
+$Event event_function
+
+$Function BOOL is_set(STRING name)
+
+Arguments
+    name: name of the environment variable.
+Description
+    Checks if an environment variable is set.
+
+$Function STRING get(STRING name)
+
+Arguments
+    name: name of the environment variable.
+Description
+    Gets the value of an environment variable.
+
+    Beware during certain VCL phases like ``vcl_init`` copying values is not
+    possible because a workspace is not available. In those cases a pointer to
+    a string allocated in the heap is returned when the variable exists. You
+    must use these pointers carefully.
