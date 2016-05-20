@@ -9,6 +9,7 @@ before_install:
   - ./configure
   - make
   - sudo make PREFIX="/usr/local" install
+  - cd ..
 
 before_script:
   - ./autogen.sh
