@@ -13,7 +13,7 @@ extern char **environ;
 
 typedef struct variable {
     unsigned magic;
-    #define VARIABLE_MAGIC 0xcb181fe7
+    #define VARIABLE_MAGIC 0xcb181fe6
     const char *name;
     const char *value;
     VRB_ENTRY(variable) tree;
