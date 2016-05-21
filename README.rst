@@ -27,4 +27,8 @@ COPYRIGHT
 
 See LICENSE for details.
 
+BSD's implementation of the red–black tree and the splay tree data structures by Niels Provos has been borrowed from the `Varnish Cache project <https://github.com/varnishcache/varnish-cache>`_:
+
+* https://github.com/varnishcache/varnish-cache/blob/master/include/vtree.h
+
 Copyright (c) 2016 Carlos Abalde <carlos.abalde@gmail.com>
